@@ -1,14 +1,14 @@
 module.exports = {
     globalExtends: ["config:recommended", ":gitSignOff"], // using this instead of "extends" solves the problem with order of the configuration
     repositories: ['nxhafa/api-layer'],
-    baseBranches: ["updatingRenovate"],
+    baseBranches: ["updateRenovate"],
     dependencyDashboard: true,
     includePaths: ["api-catalog-ui/frontend/**"],
     packageRules: [
         {
             //for v2.x.x branch ignore grouping from extends preset, find all packages which are patches,
             // slug them and make PR with name "all patch dependencies"
-            "matchBaseBranches": ["updatingRenovate"],
+            "matchBaseBranches": ["updateRenovate"],
             "matchPackageNames": ["@emotion/react"],
             "groupName": "all patch dependencies",
             "groupSlug": "all-patch",
