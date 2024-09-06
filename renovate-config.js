@@ -10,9 +10,9 @@ module.exports = {
             // slug them and make PR with name "all patch dependencies"
             "matchBaseBranches": ["updateRenovate"],
             "matchPackageNames": ["@emotion/react"],
-            "groupName": "all patch dependencies",
-            "groupSlug": "all-patch",
-            "matchUpdateTypes": ["patch"],
+            "groupName": "all major, minor and patch dependencies",
+            "groupSlug": "all-dependencies",
+            "matchUpdateTypes": ["major", "minor", "patch"],
         },
     ],
     hostRules: [
