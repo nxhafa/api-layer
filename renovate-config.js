@@ -3,13 +3,13 @@ module.exports = {
     repositories: ['nxhafa/api-layer'],
     baseBranches: ["updateRenovate"],
     dependencyDashboard: true,
-    includePaths: ["api-catalog-ui/frontend/**"],
+    includePaths: ["zowe-cli-id-federation-plugin/**"],
     packageRules: [
         {
             //for v2.x.x branch ignore grouping from extends preset, find all packages which are patches,
             // slug them and make PR with name "all patch dependencies"
             "matchBaseBranches": ["updateRenovate"],
-            "matchPackageNames": ["@emotion/react"],
+            "matchPackageNames": ["*"],
             "groupName": "all major, minor and patch dependencies",
             "groupSlug": "all-dependencies",
             "matchUpdateTypes": ["major", "minor", "patch"],
@@ -24,6 +24,7 @@ module.exports = {
     printConfig: true,
     labels: ['dependencies'],
     dependencyDashboardLabels: ['dependencies'],
+    ignoreDeps: ['history','jsdom','react-router-dom','@mui/icons-material','@mui/material','@material-ui/core','@material-ui/icons'],
     commitMessagePrefix: 'chore: ',
     prHourlyLimit: 0, // removes rate limit for PR creation per hour
     npmrc: 'legacy-peer-deps=true\nregistry=https://zowe.jfrog.io/artifactory/api/npm/npm-org/', //for updating lock-files
