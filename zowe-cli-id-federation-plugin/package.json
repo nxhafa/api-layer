@@ -51,8 +51,8 @@
   "devDependencies": {
     "@types/jest": "29.4.3",
     "@types/node": "18.15.3 ",
-    "@typescript-eslint/eslint-plugin": "5.55.0",
-    "@typescript-eslint/parser": "5.55.0",
+    "@typescript-eslint/eslint-plugin": "5.62.0",
+    "@typescript-eslint/parser": "5.62.0",
     "@zowe/cli": "7.19.0",
     "@zowe/cli-test-utils": "7.19.0",
     "@zowe/imperative": "5.19.0",
