@@ -79,7 +79,7 @@
     "typescript": "5.6.3"
   },
   "overrides": {
-    "@babel/traverse": "7.25.7"
+    "@babel/traverse": "7.25.9"
   },
   "peerDependencies": {
     "@zowe/imperative": "8.2.0"
