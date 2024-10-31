@@ -10,8 +10,8 @@
 
 package org.zowe.apiml.util;
 
-import com.google.common.net.HttpHeaders;
 import org.apache.hc.core5.http.Header;
+import org.apache.hc.core5.http.HttpHeaders;
 import org.apache.hc.core5.http.HttpRequest;
 import org.apache.hc.core5.http.message.BasicHeader;
 
@@ -48,7 +48,7 @@ public final class Cookies {
         return getAll()
             .stream()
             .filter(c -> c.getName().equalsIgnoreCase(needle))
-            .collect(Collectors.toList());
+            .toList();
     }
 
     public void set(HttpCookie cookie) {
@@ -72,7 +72,7 @@ public final class Cookies {
             List<HttpCookie> cookieList = getAllCookiesFromHeader(header);
             cookieList = cookieList.stream()
                 .filter(c -> !c.getName().equalsIgnoreCase(cookie))
-                .collect(Collectors.toList());
+                .toList();
             if (cookieList.isEmpty()) {
                 request.removeHeaders(HttpHeaders.COOKIE);
             } else {

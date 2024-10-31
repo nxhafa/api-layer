@@ -9,11 +9,10 @@
  */
 
 import 'react-app-polyfill/ie11';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { applyMiddleware, compose, createStore } from 'redux';
 import { createEpicMiddleware } from 'redux-observable';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { ajax } from 'rxjs/ajax';
 import logger from 'redux-logger';
 import * as log from 'loglevel';
@@ -63,13 +62,13 @@ const store = createStore(persistedReducer, composeEnhancers(applyMiddleware(...
 epicMiddleware.run(rootEpic);
 const persistor = persistStore(store);
 
-ReactDOM.render(
+const container = document.getElementById('root');
+createRoot(container).render(
     <HashRouter>
         <Provider store={store}>
             <PersistGate loading={<Spinner isLoading />} persistor={persistor}>
                 <AsyncAppContainer />
             </PersistGate>
         </Provider>
-    </HashRouter>,
-    document.getElementById('root')
+    </HashRouter>
 );
