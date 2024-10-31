@@ -6,14 +6,20 @@ module.exports = {
     includePaths: ["zowe-cli-id-federation-plugin/**"],
     packageRules: [
         {
-            //for v2.x.x branch ignore grouping from extends preset, find all packages which are patches,
-            // slug them and make PR with name "all patch dependencies"
+            //for updateRenovate branch find all packages which are minor and patches,
+            // slug them and make PR with name "all non-major dependencies"
             "matchBaseBranches": ["updateRenovate"],
+            "groupName": "all non-major dependencies",
+            "groupSlug": "all-minor-patch",
             "matchPackageNames": ["*"],
-            "groupName": "all major, minor and patch dependencies",
-            "groupSlug": "all-dependencies",
-            "matchUpdateTypes": ["major", "minor", "patch"],
+            "matchUpdateTypes": ["minor", "patch"]
         },
+        {
+            //for updateRenovate make dashboard approval to all major dependencies updates
+            "matchBaseBranches": ["updateRenovate"],
+            "matchUpdateTypes": ["major"],
+            "dependencyDashboardApproval": true,
+        }
     ],
     hostRules: [
         {
@@ -24,7 +30,7 @@ module.exports = {
     printConfig: true,
     labels: ['dependencies'],
     dependencyDashboardLabels: ['dependencies'],
-    ignoreDeps: ['history','jsdom','react-router-dom','@mui/icons-material','@mui/material','@material-ui/core','@material-ui/icons'],
+    ignoreDeps: ['history','jsdom','react-router-dom','@mui/icons-material','@mui/material','@material-ui/core','@material-ui/icons', 'undici'],
     commitMessagePrefix: 'chore: ',
     prHourlyLimit: 0, // removes rate limit for PR creation per hour
     npmrc: 'legacy-peer-deps=true\nregistry=https://zowe.jfrog.io/artifactory/api/npm/npm-org/', //for updating lock-files
