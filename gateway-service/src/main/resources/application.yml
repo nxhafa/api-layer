@@ -22,6 +22,7 @@ logging:
         # New Config
         org.apache: WARN  #org.apache.catalina, org.apache.coyote, org.apache.tomcat
         javax.servlet: INFO
+        javax.net.ssl: ERROR # For running with java 17
         org.apache.http.conn.ssl.DefaultHostnameVerifier: DEBUG #logs only SSLException
         org.eclipse.jetty.util.ssl: ERROR
         org.apache.tomcat.util.net.SSLUtilBase: ERROR
