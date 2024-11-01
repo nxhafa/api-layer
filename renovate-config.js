@@ -1,10 +1,11 @@
 module.exports = {
-    globalExtends: ["config:recommended", "commitBody: Signed-off-by: {{{gitAuthor}}}"], // using this instead of "extends" solves the problem with order of the configuration
+    globalExtends: ["config:recommended"], // using this instead of "extends" solves the problem with order of the configuration
     repositories: ['nxhafa/api-layer'],
     baseBranches: ["updateRenovate"],
     dependencyDashboard: true,
     includePaths: ["zowe-cli-id-federation-plugin/**"],
     allowedPostUpgradeCommands: ['npm install'],
+    commitBody: "Signed-off-by: {{{gitAuthor}}}",
     packageRules: [
         {
             //for updateRenovate branch find all packages which are minor and patches,
