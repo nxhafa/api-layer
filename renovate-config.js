@@ -4,6 +4,7 @@ module.exports = {
     baseBranches: ["updateRenovate"],
     dependencyDashboard: true,
     includePaths: ["zowe-cli-id-federation-plugin/**"],
+    allowedPostUpgradeCommands: ['^npm i '],
     packageRules: [
         {
             //for updateRenovate branch find all packages which are minor and patches,
