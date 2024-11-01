@@ -4,7 +4,7 @@ module.exports = {
     baseBranches: ["updateRenovate"],
     dependencyDashboard: true,
     includePaths: ["zowe-cli-id-federation-plugin/**"],
-    allowedPostUpgradeCommands: ['npm install'],
+    allowedPostUpgradeCommands: ['^npm install'],
     commitBody: "Signed-off-by: {{{gitAuthor}}}",
     packageRules: [
         {
@@ -16,7 +16,7 @@ module.exports = {
             "matchPackageNames": ["*"],
             "matchUpdateTypes": ["minor", "patch"],
             "postUpgradeTasks": {
-                "commands": ["npm install"],
+                "commands": ["npm install --package-lock-only"],
                 "fileFilters": ["**/**"],
                 "executionMode": "branch"
             }
