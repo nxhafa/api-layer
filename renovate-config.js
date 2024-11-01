@@ -1,11 +1,5 @@
 module.exports = {
     globalExtends: ["config:recommended", ":gitSignOff"], // using this instead of "extends" solves the problem with order of the configuration
-    force: {
-        "constraints": {
-            "node": "=20.18.0",
-            "npm": "=10.9.0"
-        }
-    },
     repositories: ['nxhafa/api-layer'],
     baseBranches: ["updateRenovate"],
     dependencyDashboard: true,
@@ -18,7 +12,12 @@ module.exports = {
             "groupName": "all non-major dependencies",
             "groupSlug": "all-minor-patch",
             "matchPackageNames": ["*"],
-            "matchUpdateTypes": ["minor", "patch"]
+            "matchUpdateTypes": ["minor", "patch"],
+            "postUpgradeTasks": {
+                "commands": ["npm i"],
+                "fileFilters": ["**/**"],
+                "executionMode": "branch"
+            }
         },
         {
             //for updateRenovate make dashboard approval to all major dependencies updates
