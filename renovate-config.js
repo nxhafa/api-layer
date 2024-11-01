@@ -1,5 +1,11 @@
 module.exports = {
-    extends: ["config:recommended", ":gitSignOff"], // using this instead of "extends" solves the problem with order of the configuration
+    globalExtends: ["config:recommended", ":gitSignOff"], // using this instead of "extends" solves the problem with order of the configuration
+    force: {
+        "constraints": {
+            "node": "=20.18.0",
+            "npm": "=10.9.0"
+        }
+    },
     repositories: ['nxhafa/api-layer'],
     baseBranches: ["updateRenovate"],
     dependencyDashboard: true,
@@ -30,7 +36,7 @@ module.exports = {
     printConfig: true,
     labels: ['dependencies'],
     dependencyDashboardLabels: ['dependencies'],
-    ignoreDeps: ['history','jsdom','react-router-dom','@mui/icons-material','@mui/material','@material-ui/core','@material-ui/icons', 'undici'],
+    ignoreDeps: ['history', 'jsdom', 'react-router-dom', '@mui/icons-material', '@mui/material', '@material-ui/core', '@material-ui/icons', 'undici'],
     commitMessagePrefix: 'chore: ',
     prHourlyLimit: 0, // removes rate limit for PR creation per hour
     npmrc: 'legacy-peer-deps=true\nregistry=https://zowe.jfrog.io/artifactory/api/npm/npm-org/', //for updating lock-files
