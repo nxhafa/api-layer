@@ -1,5 +1,5 @@
 module.exports = {
-    extends: ["config:recommended", ":gitSignOff"], // using this instead of "extends" solves the problem with order of the configuration
+    globalExtends: ["config:recommended", "commitBody: Signed-off-by: {{{gitAuthor}}}"], // using this instead of "extends" solves the problem with order of the configuration
     repositories: ['nxhafa/api-layer'],
     baseBranches: ["updateRenovate"],
     dependencyDashboard: true,
