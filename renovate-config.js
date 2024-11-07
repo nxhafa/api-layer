@@ -1,6 +1,6 @@
 module.exports = {
     globalExtends: ["config:recommended"], // using this instead of "extends" solves the problem with order of the configuration
-    repositories: ['zowe/api-layer'],
+    repositories: ['nxhafa/api-layer'],
     baseBranches: ["v2.x.x", "v3.x.x"],
     commitBody: "Signed-off-by: {{{gitAuthor}}}",
     dependencyDashboard: true,
