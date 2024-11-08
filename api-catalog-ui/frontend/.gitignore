@@ -3,6 +3,9 @@
 # dependencies
 /node_modules
 
+#npm
+.npmrc
+
 # testing
 /coverage
 

@@ -23,6 +23,7 @@ build/
 # UI specific files and directories
 node_modules/
 npm-debug.log
+.npmrc
 api-catalog-services/src/main/resources/static/
 api-catalog-ui/tools
 api-catalog-ui/src/main/resources/static
