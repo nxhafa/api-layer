@@ -2,10 +2,9 @@
   "name": "@zowe/apiml-onboarding-enabler-nodejs",
   "version": "3.0.43",
   "description": "NodeJS enabler for Zowe API Mediation Layer",
-  "type": "commonjs",
-  "main": "lib/index.js",
+  "main": "src/index.js",
   "scripts": {
-    "Xstart": "node src/index.js NODE_DEBUG=request",
+    "start": "node src/index.js NODE_DEBUG=request",
     "prepublish": "gulp",
     "test": "gulp test",
     "integration": "gulp test:integration",
@@ -44,6 +43,7 @@
     "sinon-chai": "^2.8.0"
   },
   "overrides": {
+      "tough-cookie": "5.0.0",
     "graceful-fs": "^4.2.11"
   },
   "greenkeeper": {
@@ -54,5 +54,9 @@
       "gulp-eslint",
       "gulp-mocha"
     ]
+  },
+  "engines": {
+      "npm": "=10.9.0",
+      "node": "=20.18.0"
   }
 }

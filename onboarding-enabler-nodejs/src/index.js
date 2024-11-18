@@ -67,6 +67,6 @@ function unregisterFromEureka() {
   client.stop();
 }
 
-// connectToEureka();
+connectToEureka();
 
 module.exports = { connectToEureka, tlsOptions, unregisterFromEureka };
