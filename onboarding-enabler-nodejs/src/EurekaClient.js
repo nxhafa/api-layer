@@ -1,10 +1,10 @@
 import fs from 'fs';
 import yaml from 'js-yaml';
-import {findIndex, merge} from 'lodash';
-import {findInstance, normalizeDelta} from './deltaUtils';
+import { findIndex, merge } from 'lodash';
+import { findInstance, normalizeDelta } from './deltaUtils';
 import path from 'path';
-import {series, waterfall} from 'async';
-import {EventEmitter} from 'events';
+import { series, waterfall } from 'async';
+import { EventEmitter } from 'events';
 
 import AwsMetadata from './AwsMetadata';
 import ConfigClusterResolver from './ConfigClusterResolver';
@@ -608,9 +608,11 @@ export default class Eureka extends EventEmitter {
           key: requestOpts.key,
           ca: requestOpts.ca,
         };
-        this.logger.debug(`prepared options for the request ${JSON.stringify(options)}`)
+        this.logger.debug(`prepared options for the request ${JSON.stringify(options)}`);
 
+        let response = null;
         const req = https.request(options, (res) => {
+          response = res;
           let data = '';
           if (res.statusCode !== 204) {
             res.on('data', chunk => {
@@ -627,7 +629,7 @@ export default class Eureka extends EventEmitter {
         });
         req.on('error', e => {
           this.logger.error(`Error occuired on ${url}: ${e}`);
-          done(e, res, null, requestOpts);
+          done(e, response, null, requestOpts);
         });
         if (requestOpts.body) {
           req.write(JSON.stringify(requestOpts.body));
