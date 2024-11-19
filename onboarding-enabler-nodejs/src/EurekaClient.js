@@ -1,17 +1,16 @@
 import fs from 'fs';
 import yaml from 'js-yaml';
-import { merge, findIndex } from 'lodash';
-import { normalizeDelta, findInstance } from './deltaUtils';
+import {findIndex, merge} from 'lodash';
+import {findInstance, normalizeDelta} from './deltaUtils';
 import path from 'path';
-import { series, waterfall } from 'async';
-import { EventEmitter } from 'events';
+import {series, waterfall} from 'async';
+import {EventEmitter} from 'events';
 
 import AwsMetadata from './AwsMetadata';
 import ConfigClusterResolver from './ConfigClusterResolver';
 import DnsClusterResolver from './DnsClusterResolver';
 import Logger from './Logger';
 import defaultConfig from './defaultConfig';
-// import {Agent} from "http";
 const https = require('https');
 
 function noop() {}
@@ -594,9 +593,6 @@ export default class Eureka extends EventEmitter {
       (requestOpts, done) => {
         // const method = requestOpts.method ? requestOpts.method.toLowerCase() : 'get';
         const method = requestOpts.method ? requestOpts.method.toUpperCase() : 'GET';
-        console.log(requestOpts);
-        console.log(requestOpts.baseUrl);
-
         const url = new URL(requestOpts.baseUrl + requestOpts.uri);
 
         const headers = requestOpts.headers || {};
@@ -612,64 +608,32 @@ export default class Eureka extends EventEmitter {
           key: requestOpts.key,
           ca: requestOpts.ca,
         };
-        options.agent = new https.Agent(options);
-        console.log(options);
+        this.logger.debug(`prepared options for the request ${JSON.stringify(options)}`)
+
         const req = https.request(options, (res) => {
-          console.log('statusCode:', res.statusCode);
-          console.log('headers:', res.headers);
-          if (res.statusCode === 204) {
-            done(null, res, null, requestOpts);
-          } else {
-            console.log('Data received');
-            res.on('data', d => {
-              console.log(`Response: ${res}`);
-              console.log(`Data: ${d}`);
-              done(null, res, d, requestOpts);
+          let data = '';
+          if (res.statusCode !== 204) {
+            res.on('data', chunk => {
+              data += chunk;
             });
+            res.on('end', () => {
+              this.logger.debug(`Received data: ${data}`);
+              done(null, res, data, requestOpts);
+            });
+          } else if (res.statusCode < 500) {
+            this.logger.debug(`Received status code: ${res.statusCode}`);
+            done(null, res, null, requestOpts);
           }
         });
         req.on('error', e => {
-          console.log(`Error: ${e}`);
-          done(e, null, null, requestOpts);
+          this.logger.error(`Error occuired on ${url}: ${e}`);
+          done(e, res, null, requestOpts);
         });
         if (requestOpts.body) {
           req.write(JSON.stringify(requestOpts.body));
         }
         req.end();
       },
-
-      //   fetch(requestOpts.baseUrl, {
-      //     method,
-      //
-      //     headers: requestOpts.headers,
-      //     agent: new Agent({
-      //       cert: requestOpts.cert,
-      //       key: requestOpts.key,
-      //       ca: requestOpts.ca,
-      //       rejectUnauthorized: false,
-      //     }),
-      //     cert: requestOpts.cert,
-      //     key: requestOpts.key,
-      //     ca: requestOpts.ca,
-      //   })
-      //   .catch(error => {
-      //     console.log('error');
-      //     console.log(error);
-      //     done(error, error.response, null, requestOpts);
-      //   })
-      //   .then(response => {
-      //     console.log('response');
-      //     console.log(response);
-      //     response.json().then(json => {
-      //       console.log('json');
-      //       console.log(json);
-      //       done(null, response, json, requestOpts);
-      //     });
-      //   });
-      //   // request[method](requestOpts, (error, response, body) => {
-      //   //   done(error, response, body, requestOpts);
-      //   // });
-      // },
     ],
     /*
     Handle Final Output.
