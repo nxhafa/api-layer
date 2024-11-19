@@ -5,7 +5,6 @@ import eslint from 'gulp-eslint';
 import { Instrumenter } from 'babel-istanbul';
 import istanbul from 'gulp-istanbul';
 import env from 'gulp-env';
-import request from 'request';
 import { spawn, exec } from 'child_process';
 
 gulp.task('build', () => (
@@ -59,7 +58,7 @@ function waitForEureka(cb) {
   else if ((+new Date() - startTime) > EUREKA_INIT_TIMEOUT) {
     return cb(new Error('Eureka failed to start before timeout'));
   }
-  request.get({ url: `http://localhost:${DOCKER_PORT}/eureka` }, (err) => {
+  fetch(`http://localhost:${DOCKER_PORT}/eureka`).catch((err) => {
     if (err) {
       if (err.code === 'ECONNRESET') {
         console.log('Eureka connection not ready. Waiting..'); // eslint-disable-line
