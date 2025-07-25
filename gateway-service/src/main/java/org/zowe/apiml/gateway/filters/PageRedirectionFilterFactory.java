@@ -45,7 +45,7 @@ import static reactor.core.publisher.Mono.empty;
 @Slf4j
 public class PageRedirectionFilterFactory extends AbstractGatewayFilterFactory<PageRedirectionFilterFactory.Config> {
 
-    @Value("${server.attls.enabled:false}")
+    @Value("${server.attlsClient.enabled:false}")
     private boolean isAttlsEnabled;
 
     private final DiscoveryClient discoveryClient;
